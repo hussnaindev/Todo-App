@@ -5,10 +5,15 @@ import 'package:todo_list_app/pages/data_input_page.dart';
 import 'package:todo_list_app/providers/task_provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:lottie/lottie.dart';
+import '../models/task.dart';
 
 class TodosPage extends StatelessWidget {
   static const String id = '/todos-page';
   const TodosPage({Key? key}) : super(key: key);
+
+  removeTask(BuildContext context, Task task) {
+    Provider.of<TaskProvider>(context, listen: false).removeTask(task);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +34,9 @@ class TodosPage extends StatelessWidget {
                       itemCount: taskProvider.tasks.length,
                       itemBuilder: (context, index) => Dismissible(
                             key: Key(taskProvider.tasks[index].title),
-                            onDismissed: (v) {},
+                            onDismissed: (v) {
+                              removeTask(context, taskProvider.tasks[index]);
+                            },
                             child: Card(
                                 child: ListTile(
                               title: Text(

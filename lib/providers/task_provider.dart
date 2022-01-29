@@ -10,7 +10,11 @@ class TaskProvider extends ChangeNotifier {
 
   addTask(Task newTask) {
     tasks.add(newTask);
+    notifyListeners();
+  }
 
+  removeTask(Task task) {
+    tasks.remove(task);
     notifyListeners();
   }
 }
